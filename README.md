@@ -22,7 +22,7 @@ Requer Node.js 22.20 ou mais novo.
 npx skills add ricarossetto/arruma-ui
 ```
 
-O CLI pergunta em quais harnesses instalar. Para ir direto no Cline:
+O CLI pergunta em quais harnesses instalar. Se ele detectar o opencode e instalar sem perguntar, force o harness com `-a`:
 
 ```shell
 npx skills add ricarossetto/arruma-ui -a cline -g
