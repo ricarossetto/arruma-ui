@@ -1,20 +1,100 @@
+<div align="center">
+
 # arruma-ui
 
-Skill de agente para arrumar, auditar e normalizar interfaces existentes. Funciona com Cline, OpenCode, Claude Code, Codex, Cursor e qualquer harness que leia o padrão Agent Skills (`SKILL.md`).
+**Uma skill de agente para arrumar interfaces que já existem.**
 
-Ela não é um gerador de landing page. O foco é o que já existe: ler tokens, componentes e telas, achar o que está inconsistente e corrigir sem quebrar produto, conteúdo ou fluxo.
+Audita antes de editar. Preserva o produto. Normaliza o sistema visual sem trocar a identidade.
+
+[![Agent Skill](https://img.shields.io/badge/agent%20skill-SKILL.md-1f2937?style=flat-square)](skills/arruma-ui/SKILL.md)
+[![License](https://img.shields.io/badge/license-MIT-b08d57?style=flat-square)](LICENSE)
+[![Harnesses](https://img.shields.io/badge/works%20with-Cline%2C%20OpenCode%2C%20Claude%20Code%2C%20Codex%2C%20Cursor-1f2937?style=flat-square)](#compatibilidade)
+
+</div>
+
+---
+
+## O problema
+
+Interface feita por IA costuma cair no mesmo lugar: tudo centralizado, três cards iguais, gradiente roxo, botões de cinco alturas, foco invisível, movimento decorativo. Projeto antigo acumula o mesmo tipo de ruído por outro caminho: cada tela nasceu em um dia, com um raio, um espaçamento e um estado diferente.
+
+O `arruma-ui` atende os dois casos sem transformar o projeto em template. Ele lê o que existe, aponta o que está inconsistente e corrige o sistema. A marca, o conteúdo e o fluxo continuam.
 
 ## O que ela faz
 
-- lê tokens, tema, componentes e as telas afetadas antes de editar
-- audita hierarquia, layout, tipografia, cor, superfícies, controles, estados, motion, responsivo, acessibilidade, copy e performance
-- normaliza alturas de botões e inputs, raios, espaçamento, foco, sombras e ícones
-- remove padrões de "cara de IA" antes de adicionar coisa nova
-- implementa em passes, com diff legível
-- verifica no browser em 390, 768 e 1440, claro e escuro, teclado e reduced motion
-- entrega um relatório curto com arquivos, telas e evidência
+| Etapa | O que acontece |
+|---|---|
+| Lê | Tokens, tema, componentes, telas e estados atuais. |
+| Audita | 13 dimensões, com nota e evidência por achado. |
+| Normaliza | Botões, inputs, raios, espaçamento, foco, sombras, ícones e tipografia. |
+| Remove | Ruído de IA antes de adicionar qualquer coisa nova. |
+| Implementa | Em passes: tokens, layout, componentes, estados, motion. |
+| Verifica | Browser em 390, 768 e 1440, claro e escuro, teclado e reduced motion. |
+| Relata | Arquivos, telas, antes e depois, riscos e próximo passo. |
 
-## Instalar
+## Princípios
+
+- O produto manda. A skill não troca conteúdo, fluxo ou marca.
+- Auditar antes de editar.
+- Remover antes de adicionar.
+- Uma coisa por vez, com diff legível.
+- Evidência no browser, não promessa.
+
+## Antes e depois
+
+| Antes | Depois |
+|---|---|
+| Botões com cinco alturas | 32 compacto, 40 padrão, 48 toque |
+| Raios aleatórios | 6, 10, 14, 18 |
+| `transition: all` | 120 a 240ms, só transform e opacity |
+| Foco invisível | Anel de 2px, sempre visível |
+| Card dentro de card | Uma camada de contenção |
+| Texto centralizado em tudo | Hierarquia com ponto de entrada claro |
+| Métrica inventada | Dado real ou nenhum |
+
+## Como funciona
+
+1. **Ler o ambiente.** Tokens, `DESIGN.md`, `PRODUCT.md`, componentes e as telas afetadas. Se o app roda, abre no browser. Se não, usa screenshots committed.
+2. **Auditar.** Nota de 0 a 10 para hierarquia, layout, tipografia, cor, superfícies, controles, motion, estados, responsivo, acessibilidade, copy, performance e slop.
+3. **Planejar.** No máximo 120 palavras: três a cinco movimentos, o que fica, arquivos e como verificar.
+4. **Normalizar.** Usa os tokens do projeto. Se não existem, cria o menor conjunto possível.
+5. **Implementar em passes.** Tokens, layout, componentes, estados e copy, motion. Sem reescrita de carona.
+6. **Verificar no browser.** 390, 768 e 1440, claro e escuro, teclado, reduced motion. Screenshot só conta se for lido.
+7. **Relatar.** O que mudou, o que ficou, evidência, riscos e um próximo passo.
+
+## O que ela normaliza
+
+| Token | Valores |
+|---|---|
+| Espaço | 4, 8, 12, 16, 24, 32, 48, 64 |
+| Raio | 6 pequeno, 10 controle, 14 card, 18 shell |
+| Tipo | 12, 13, 14, 16, 20, 24, 32, 40, 56 |
+| Altura de controle | 32 compacto, 40 padrão, 48 toque |
+| Ícone | 16, 20, 24, um peso de traço |
+| Sombra | quatro níveis, com offset e blur |
+| Foco | anel de 2px, offset de 2px |
+| Motion | 120 a 240ms, `cubic-bezier(0.22, 1, 0.36, 1)` |
+| Container | 1200 a 1440px, centralizado |
+
+## O que ela recusa
+
+- gradiente roxo para azul e texto com gradiente
+- glass e blur como decoração genérica
+- 3D, partículas e shader como enfeite padrão
+- card dentro de card
+- emoji como ícone
+- eyebrow acima de título
+- três cards iguais de ícone, título e texto
+- `#000` e `#fff` puros fora dos tokens
+- Inter, Roboto, Open Sans, Poppins ou Lato como fonte de display
+- métrica, depoimento, logo ou case inventado
+- `transition: all` e animação de width, height, top ou left
+- informação essencial só no hover
+- foco invisível
+- movimento sem significado de estado
+- nome de placeholder e clichê de startup
+
+## Instalação
 
 Requer Node.js 22.20 ou mais novo.
 
@@ -22,32 +102,22 @@ Requer Node.js 22.20 ou mais novo.
 npx skills add ricarossetto/arruma-ui
 ```
 
-O CLI pergunta em quais harnesses instalar. Se ele detectar o opencode e instalar sem perguntar, force o harness com `-a`:
+O CLI pergunta em quais harnesses instalar. Se ele detectar o opencode e instalar sem perguntar, force o harness:
 
 ```shell
 npx skills add ricarossetto/arruma-ui -a cline -g
 ```
 
-Sem `-g`, instala no projeto atual. Com `-g`, instala para o usuário.
+Sem `-g`, instala no projeto. Com `-g`, instala para o usuário.
 
 ### Cline
 
 1. Ative Skills em Settings → Features → Enable Skills, se a sua versão ainda tratar isso como experimental.
 2. Rode o comando acima.
-3. O CLI instala no padrão cross-agent `.agents/skills/arruma-ui/`. O Cline também lê `.cline/skills/arruma-ui/`, então as duas pastas funcionam.
-4. No chat, peça "arruma a UI desta tela" ou "audita essa interface".
+3. O CLI instala em `.agents/skills/arruma-ui/`. O Cline também lê `.cline/skills/arruma-ui/`.
+4. Peça "arruma a UI desta tela" ou "audita essa interface".
 
-### OpenCode
-
-```shell
-npx skills add ricarossetto/arruma-ui -a opencode -g
-```
-
-A skill fica em `~/.config/opencode/skills/arruma-ui/SKILL.md` ou `~/.agents/skills/arruma-ui/SKILL.md`, dependendo do modo de instalação.
-
-### Manual
-
-Copie a pasta `skills/arruma-ui` para o diretório de skills do seu harness.
+## Compatibilidade
 
 | Harness | Global | Projeto |
 |---|---|---|
@@ -56,6 +126,18 @@ Copie a pasta `skills/arruma-ui` para o diretório de skills do seu harness.
 | Claude Code | `~/.claude/skills/` | `.claude/skills/` |
 | Codex | `~/.codex/skills/` | `.codex/skills/` |
 | Cursor | `~/.cursor/skills/` | `.cursor/skills/` |
+
+## Exemplos de pedidos
+
+> arruma a UI da tela de checkout sem mudar o fluxo
+
+> audita essa interface e me diz o que está inconsistente
+
+> normaliza os botões e inputs desse projeto
+
+> tira a cara de IA dessa landing, mas mantém a identidade
+
+> deixa essa tela premium sem trocar a paleta
 
 ## Estrutura
 
@@ -67,4 +149,10 @@ skills/
 
 ## Licença
 
-MIT.
+MIT. Veja [LICENSE](LICENSE).
+
+<div align="center">
+
+Auditar primeiro. Editar depois.
+
+</div>
